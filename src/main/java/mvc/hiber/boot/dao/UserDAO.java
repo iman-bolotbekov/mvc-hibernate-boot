@@ -14,18 +14,14 @@ import java.util.Optional;
 @Component
 public class UserDAO {
     private final EntityManager entityManager;
-
-    @Autowired
     public UserDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
     @Transactional(readOnly = true)
     public User get(int id) {
         Session session = entityManager.unwrap(Session.class);;
         return session.get(User.class, id);
     }
-
     @Transactional(readOnly = true)
     public List<User> getAll() {
         Session session = entityManager.unwrap(Session.class);;
@@ -36,7 +32,6 @@ public class UserDAO {
         Session session = entityManager.unwrap(Session.class);;
         session.save(user);
     }
-
     @Transactional
     public void update(int id, User user) {
         Session session = entityManager.unwrap(Session.class);;
@@ -50,7 +45,6 @@ public class UserDAO {
         Session session = entityManager.unwrap(Session.class);;
         session.remove(session.get(User.class, id));
     }
-
     @Transactional(readOnly = true)
     public Optional<User> getUserByName(String name) {
         Session session = entityManager.unwrap(Session.class);;
@@ -59,5 +53,4 @@ public class UserDAO {
         List<User> resultList = query.getResultList();
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
-
 }
